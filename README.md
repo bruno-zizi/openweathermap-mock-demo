@@ -1,4 +1,4 @@
-# Weather API + MockServer Demo
+# Weather API & MockServer Demo
 The purpose of this simple project is to show how to use MockServer for Component testing in a microservices architecture.
 
 ## Requirements
