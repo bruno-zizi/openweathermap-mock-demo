@@ -2,7 +2,7 @@ version: '3'
 services:
   weather-service:
     container_name: weather-service
-    image: weather-service:latest
+    build: .
     ports:
       - 8080:8080
     networks:
