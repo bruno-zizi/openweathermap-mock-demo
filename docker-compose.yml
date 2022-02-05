@@ -1,0 +1,36 @@
+version: '3'
+services:
+  weather-service:
+    container_name: weather-service
+    image: weather-service:latest
+    ports:
+      - 8080:8080
+    networks:
+      weather-service-network:
+        aliases:
+          - weather-service
+    depends_on:
+      - mock-weather-apis
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 2
+
+  mock-weather-apis:
+    image: mockserver/mockserver
+    command: -serverPort 443,80
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
+    volumes:
+      - ./mock-configuration:/config
+    ports:
+      - "80:1080"
+    networks:
+      weather-service-network:
+        aliases:
+          - api.openweathermap.org
+
+
+networks:
+  weather-service-network:
