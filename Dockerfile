@@ -1,6 +1,7 @@
 FROM amazoncorretto:17-alpine-jdk
 WORKDIR /weatherApp
 COPY . .
+RUN chmod 775 ./mvnw
 RUN ./mvnw -DskipTests=true package
 WORKDIR /weatherApp/target
 EXPOSE 8080
